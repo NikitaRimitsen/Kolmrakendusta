@@ -16,11 +16,12 @@ namespace Kolm_rakendust
         TableLayoutPanel table;
         string[] tehed = new string[4] {"+", "-", "*","/"};
         
-        NumericUpDown numeric;
+        NumericUpDown numeric1, numeric2;
         string text;
         Button button;
         Label time;
         Label timetext;
+        Button start;
         
 
         public Mathquiz()
@@ -36,7 +37,7 @@ namespace Kolm_rakendust
             string number4 = random4.ToString();
             string[] randomad = new string[4] { number1, number2, number3, number4 };
             this.Name = "Math Quiz";
-            this.Size = new Size(500, 400);
+            this.Size = new Size(1500, 1500);
             this.FormBorderStyle = FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             table = new TableLayoutPanel
@@ -63,13 +64,21 @@ namespace Kolm_rakendust
                 BorderStyle = BorderStyle.FixedSingle,
 
             };
-            numeric = new NumericUpDown
+            numeric1 = new NumericUpDown
             {
-
+                Font = new Font("Calibri", 18, FontStyle.Bold),
+                Width = 100,
+                Name = "sun"
+            };
+            numeric2 = new NumericUpDown
+            {
+                Font = new Font("Calibri", 18, FontStyle.Bold),
+                Width = 100,
+                Name = "sun"
             };
             button = new Button
             {
-
+                
             };
             time = new Label
             {
@@ -89,14 +98,25 @@ namespace Kolm_rakendust
                 Font = new Font("Calibri", 16, FontStyle.Bold),
                 AutoSize = true
             };
+            start = new Button
+            {
+                Text = "Start the quiz",
+                Name = "starButton",
+                Font = new Font("Calibri", 14, FontStyle.Bold),
+                AutoSize = true,
+                TabIndex = 0,
+                Location = new Point(150, 280),
+            };
             FlowLayoutPanel flowe = new FlowLayoutPanel { FlowDirection = FlowDirection.RightToLeft };
+
+
             var l_nimed = new string[5, 4];
             for (int i = 0; i < 4; i++)
             {
                 var randa = new Random();
                 int randoma = randa.Next(1, 100);
                 string number1a = random.ToString();
-                table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+                table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50));
                 for (int j = 0; j < 5; j++)
                 {
                     table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -104,32 +124,51 @@ namespace Kolm_rakendust
                     l_nimed[j, i] = l_nimi;
                     if (j == 1) { text = tehed[i]; }//tehed = new string [4] {"+", "-", "*","/"};
                     else if (j == 2) { text = "?"; }
-                    else if (j == 3) { text = "="; }
+                    else if (j == 3) { text = "*"; }
                     else if (j == 4) {
-                        numeric = new NumericUpDown
+                        if (i==1)
+                        {
+                            numeric1 = new NumericUpDown
+                            {
+                                Font = new Font("Calibri", 18, FontStyle.Bold),
+                                Width = 100,
+                                Name = "sun"
+                            };
+                        }
+                        else if (i == 2)
+                        {
+                            numeric2 = new NumericUpDown
+                            {
+                                Font = new Font("Calibri", 18, FontStyle.Bold),
+                                Width = 100,
+                                Name = "sun"
+                            };
+                        }
+                        /*
+                        /*numeric = new NumericUpDown
                         {
                             Font = new Font("Calibri", 18, FontStyle.Bold),
                             Width = 100,
                             Name = "sun"
                         };
+                        table.Controls.Add(numeric);*/
+                        //table.SetCellPosition(numeric, new TableLayoutPanelCellPosition(i - 1, j));
 
-                        table.Controls.Add(numeric);
-                        table.SetCellPosition(numeric, new TableLayoutPanelCellPosition(i -1, j));
                     }
-                    else
-                    {
-                        text = "?";
-                        
-                    }//l_nimi
+                    //l_nimi
+                    
                     Label l = new Label { Text = text};
                     table.Controls.Add(l, j, i);
+                   // table.Controls.Add(l, j, i);
                 }
 
             }
             flowe.Controls.Add(time);
             flowe.Controls.Add(timetext);
             this.Controls.Add(flowe);
+            this.Controls.Add(start);
             this.Controls.Add(table);
+            
         }
     }
 }
