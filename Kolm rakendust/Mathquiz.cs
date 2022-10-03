@@ -16,7 +16,7 @@ namespace Kolm_rakendust
         TableLayoutPanel table;
         string[] tehed = new string[4] {"+", "-", "*","/"};
         
-        NumericUpDown numeric1, numeric2;
+        NumericUpDown numeric1, numeric2, numeric3, numeric4;
         string text;
         Button button;
         Label time;
@@ -37,7 +37,7 @@ namespace Kolm_rakendust
             string number4 = random4.ToString();
             string[] randomad = new string[4] { number1, number2, number3, number4 };
             this.Name = "Math Quiz";
-            this.Size = new Size(1500, 1500);
+            this.Size = new Size(500, 1500);
             this.FormBorderStyle = FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             table = new TableLayoutPanel
@@ -68,13 +68,25 @@ namespace Kolm_rakendust
             {
                 Font = new Font("Calibri", 18, FontStyle.Bold),
                 Width = 100,
-                Name = "sun"
+                Name = "sum"
             };
             numeric2 = new NumericUpDown
             {
                 Font = new Font("Calibri", 18, FontStyle.Bold),
                 Width = 100,
-                Name = "sun"
+                Name = "min"
+            };
+            numeric3 = new NumericUpDown
+            {
+                Font = new Font("Calibri", 18, FontStyle.Bold),
+                Width = 100,
+                Name = "umn"
+            };
+            numeric4 = new NumericUpDown
+            {
+                Font = new Font("Calibri", 18, FontStyle.Bold),
+                Width = 100,
+                Name = "del"
             };
             button = new Button
             {
@@ -107,7 +119,7 @@ namespace Kolm_rakendust
                 TabIndex = 0,
                 Location = new Point(150, 280),
             };
-            FlowLayoutPanel flowe = new FlowLayoutPanel { FlowDirection = FlowDirection.RightToLeft };
+            
 
 
             var l_nimed = new string[5, 4];
@@ -156,13 +168,14 @@ namespace Kolm_rakendust
 
                     }
                     //l_nimi
-                    
+                    else { text = "?"; }
                     Label l = new Label { Text = text};
                     table.Controls.Add(l, j, i);
                    // table.Controls.Add(l, j, i);
                 }
 
             }
+            FlowLayoutPanel flowe = new FlowLayoutPanel { FlowDirection = FlowDirection.RightToLeft, Dock = DockStyle.Top};
             flowe.Controls.Add(time);
             flowe.Controls.Add(timetext);
             this.Controls.Add(flowe);
