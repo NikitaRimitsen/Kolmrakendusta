@@ -34,8 +34,25 @@ namespace Kolm_rakendust
                 Location = new System.Drawing.Point(200, 150),
             };
             mathquiz.Click += Mathquiz_Click;
+            mathgame = new Button
+            {
+                Text = "Game",
+                Width = 120,
+                Height = 30,
+                Location = new System.Drawing.Point(200, 200),
+            };
+            mathgame.Click += Mathgame_Click;
             this.Controls.Add(picture);
             this.Controls.Add(mathquiz);
+            this.Controls.Add(mathgame);
+        }
+
+        private void Mathgame_Click(object sender, EventArgs e)
+        {
+            Game game = new Game();
+            game.StartPosition = FormStartPosition.CenterScreen;
+            game.Show();
+            this.Hide();
         }
 
         private void Mathquiz_Click(object sender, EventArgs e)

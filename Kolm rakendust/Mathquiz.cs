@@ -14,6 +14,7 @@ namespace Kolm_rakendust
     public partial class Mathquiz : Form
     {
         TableLayoutPanel table;
+        TableLayoutPanel table2;
         string[] tehed = new string[4] {"+", "-", "*","/"};
         
         NumericUpDown numeric1, numeric2, numeric3, numeric4;
@@ -21,12 +22,14 @@ namespace Kolm_rakendust
         Button button;
         Label time;
         Label timetext;
+        Label pludLeftLabel, plusRightLabel;
         Button start;
         
 
         public Mathquiz()
         {
             var rand = new Random();
+            
             int random = rand.Next(1, 100);
             string number1 = random.ToString();
             int random2 = rand.Next(1, 100);
@@ -37,39 +40,44 @@ namespace Kolm_rakendust
             string number4 = random4.ToString();
             string[] randomad = new string[4] { number1, number2, number3, number4 };
             this.Name = "Math Quiz";
-            this.Size = new Size(500, 1500);
             this.FormBorderStyle = FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            table = new TableLayoutPanel
+            this.Size = new Size(550, 400);
+            table2 = new TableLayoutPanel
             {
-                AutoSize = true,
-                /*ColumnStyles = 
+                ColumnStyles =
                 {
-                    new ColumnStyle(SizeType.Percent, 25),
-                    new ColumnStyle(SizeType.Percent, 15),
-                    new ColumnStyle(SizeType.Percent, 15),
-                    new ColumnStyle(SizeType.Percent, 15),
-                    new ColumnStyle(SizeType.Percent, 30),
+                    new ColumnStyle(SizeType.Percent, 20),
+                    new ColumnStyle(SizeType.Percent, 20),
+                    new ColumnStyle(SizeType.Percent, 20),
+                    new ColumnStyle(SizeType.Percent, 20),
+                    new ColumnStyle(SizeType.Percent, 20),
                 },
                 RowStyles =
                 {
                     new RowStyle(SizeType.Percent, 25),
-                    new RowStyle(SizeType.Percent, 10),
-                    new RowStyle(SizeType.Percent, 10),
-                    new RowStyle(SizeType.Percent, 10),
-                    new RowStyle(SizeType.Percent, 10),
-                    new RowStyle(SizeType.Percent, 35),
-                }*/
-                Location = new Point(0,150),
-                BorderStyle = BorderStyle.FixedSingle,
+                    new RowStyle(SizeType.Percent, 25),
+                    new RowStyle(SizeType.Percent, 25),
+                    new RowStyle(SizeType.Percent, 25),
 
+                },
+                BorderStyle = BorderStyle.FixedSingle,
+                AutoSize = true,
+                Location = new Point(0, 190),
             };
-            numeric1 = new NumericUpDown
+            plusRightLabel = new Label
             {
-                Font = new Font("Calibri", 18, FontStyle.Bold),
-                Width = 100,
-                Name = "sum"
+                Text="+"
             };
+
+            table = new TableLayoutPanel
+            {
+                Location = new Point(0, 100),
+                BorderStyle = BorderStyle.FixedSingle,
+                AutoSize= true,
+            };
+
+
             numeric2 = new NumericUpDown
             {
                 Font = new Font("Calibri", 18, FontStyle.Bold),
@@ -101,6 +109,8 @@ namespace Kolm_rakendust
                 Height = 30,
                 Font = new Font("Calibri", 16, FontStyle.Bold),
                 Text = "",
+                
+                
                 //FlowDirection = FlowDirection.RightToLeft,
 
             };
@@ -108,7 +118,8 @@ namespace Kolm_rakendust
             {
                 Text = "Time left",
                 Font = new Font("Calibri", 16, FontStyle.Bold),
-                AutoSize = true
+                BackColor = Color.Red
+                //AutoSize = true
             };
             start = new Button
             {
@@ -119,9 +130,9 @@ namespace Kolm_rakendust
                 TabIndex = 0,
                 Location = new Point(150, 280),
             };
-            
 
 
+            //Loodud table
             var l_nimed = new string[5, 4];
             for (int i = 0; i < 4; i++)
             {
@@ -137,25 +148,15 @@ namespace Kolm_rakendust
                     if (j == 1) { text = tehed[i]; }//tehed = new string [4] {"+", "-", "*","/"};
                     else if (j == 2) { text = "?"; }
                     else if (j == 3) { text = "*"; }
-                    else if (j == 4) {
-                        if (i==1)
+                    else if (j == 4)
+                    {
+                        numeric1 = new NumericUpDown
                         {
-                            numeric1 = new NumericUpDown
-                            {
-                                Font = new Font("Calibri", 18, FontStyle.Bold),
-                                Width = 100,
-                                Name = "sun"
-                            };
-                        }
-                        else if (i == 2)
-                        {
-                            numeric2 = new NumericUpDown
-                            {
-                                Font = new Font("Calibri", 18, FontStyle.Bold),
-                                Width = 100,
-                                Name = "sun"
-                            };
-                        }
+                            Font = new Font("Calibri", 18, FontStyle.Regular),
+                            Width = 100,
+                            Name = "sun"
+                        };
+                        table.Controls.Add(numeric1, j, i);
                         /*
                         /*numeric = new NumericUpDown
                         {
@@ -168,20 +169,26 @@ namespace Kolm_rakendust
 
                     }
                     //l_nimi
-                    else { text = "?"; }
-                    Label l = new Label { Text = text};
-                    table.Controls.Add(l, j, i);
-                   // table.Controls.Add(l, j, i);
+                    else { text = "5"; }
+                    if (j != 4)
+                    {
+                        Label l = new Label { Text = text, Font = new Font("Calibri", 16, FontStyle.Regular) };
+                        table.Controls.Add(l, j, i);
+                    }
+                    
                 }
-
             }
-            FlowLayoutPanel flowe = new FlowLayoutPanel { FlowDirection = FlowDirection.RightToLeft, Dock = DockStyle.Top};
+             FlowLayoutPanel flowe = new FlowLayoutPanel { FlowDirection = FlowDirection.RightToLeft, Dock = DockStyle.Top};
             flowe.Controls.Add(time);
             flowe.Controls.Add(timetext);
+            table2.Controls.Add(plusRightLabel);
+            table2.SetCellPosition(flowe, new TableLayoutPanelCellPosition(5, 2));
             this.Controls.Add(flowe);
-            this.Controls.Add(start);
             this.Controls.Add(table);
+            this.Controls.Add(start);
             
+            
+
         }
     }
 }
