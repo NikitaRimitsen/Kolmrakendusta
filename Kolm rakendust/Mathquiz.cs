@@ -22,15 +22,30 @@ namespace Kolm_rakendust
         Button button;
         Label time;
         Label timetext;
-        Label pludLeftLabel, plusRightLabel;
+        Label plusLeftLabel, plusRightLabel;
         Button start;
         
 
         public Mathquiz()
         {
-            var rand = new Random();
-            
-            int random = rand.Next(1, 100);
+            Random rand = new Random();
+
+            //Для появления рандомных чисел, вместо вопросительных знаков
+            int addend1;
+            int addend2;
+
+            int minuend;
+            int subtrahend;
+
+            int multiplicand;
+            int multiplier;
+
+            int dividend;
+            int divisor;
+
+            int timeLeft;
+
+            /*int random = rand.Next(1, 100);
             string number1 = random.ToString();
             int random2 = rand.Next(1, 100);
             string number2 = random2.ToString();
@@ -38,36 +53,46 @@ namespace Kolm_rakendust
             string number3 = random3.ToString();
             int random4 = rand.Next(1, 100);
             string number4 = random4.ToString();
-            string[] randomad = new string[4] { number1, number2, number3, number4 };
+            string[] randomad = new string[4] { number1, number2, number3, number4 };*/
             this.Name = "Math Quiz";
             this.FormBorderStyle = FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Size = new Size(550, 400);
             table2 = new TableLayoutPanel
             {
-                ColumnStyles =
-                {
-                    new ColumnStyle(SizeType.Percent, 20),
-                    new ColumnStyle(SizeType.Percent, 20),
-                    new ColumnStyle(SizeType.Percent, 20),
-                    new ColumnStyle(SizeType.Percent, 20),
-                    new ColumnStyle(SizeType.Percent, 20),
-                },
-                RowStyles =
-                {
-                    new RowStyle(SizeType.Percent, 25),
-                    new RowStyle(SizeType.Percent, 25),
-                    new RowStyle(SizeType.Percent, 25),
-                    new RowStyle(SizeType.Percent, 25),
-
-                },
-                BorderStyle = BorderStyle.FixedSingle,
+                //BorderStyle = BorderStyle.FixedSingle,
                 AutoSize = true,
-                Location = new Point(0, 190),
+                BackColor = Color.CornflowerBlue,
+                Location = new Point(0, 110),
+            };
+
+            table2.ColumnCount = 5;
+            table2.RowCount = 4;
+
+            for (int i = 0; i < 5; i++)
+            {
+                table2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20));
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                table2.RowStyles.Add(new RowStyle(SizeType.Percent, 25));
+            }
+            plusLeftLabel = new Label
+            {
+                AutoSize = false,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Webdings", 20, FontStyle.Regular),
+                Text = "c"
             };
             plusRightLabel = new Label
             {
-                Text="+"
+                AutoSize = false,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Webdings", 20, FontStyle.Regular),
+                Text = "c"
             };
 
             table = new TableLayoutPanel
@@ -76,23 +101,27 @@ namespace Kolm_rakendust
                 BorderStyle = BorderStyle.FixedSingle,
                 AutoSize= true,
             };
-
-
+            numeric1 = new NumericUpDown
+            {
+                Font = new Font("Calibri", 18, FontStyle.Regular),
+                Width = 100,
+                Name = "sun"
+            };
             numeric2 = new NumericUpDown
             {
-                Font = new Font("Calibri", 18, FontStyle.Bold),
+                Font = new Font("Calibri", 18, FontStyle.Regular),
                 Width = 100,
                 Name = "min"
             };
             numeric3 = new NumericUpDown
             {
-                Font = new Font("Calibri", 18, FontStyle.Bold),
+                Font = new Font("Calibri", 18, FontStyle.Regular),
                 Width = 100,
                 Name = "umn"
             };
             numeric4 = new NumericUpDown
             {
-                Font = new Font("Calibri", 18, FontStyle.Bold),
+                Font = new Font("Calibri", 18, FontStyle.Regular),
                 Width = 100,
                 Name = "del"
             };
@@ -138,7 +167,7 @@ namespace Kolm_rakendust
             {
                 var randa = new Random();
                 int randoma = randa.Next(1, 100);
-                string number1a = random.ToString();
+                //string number1a = random.ToString();
                 table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50));
                 for (int j = 0; j < 5; j++)
                 {
@@ -181,14 +210,25 @@ namespace Kolm_rakendust
              FlowLayoutPanel flowe = new FlowLayoutPanel { FlowDirection = FlowDirection.RightToLeft, Dock = DockStyle.Top};
             flowe.Controls.Add(time);
             flowe.Controls.Add(timetext);
+            table2.Controls.Add(plusLeftLabel);
+            table2.SetCellPosition(plusLeftLabel, new TableLayoutPanelCellPosition(0, 0));
             table2.Controls.Add(plusRightLabel);
-            table2.SetCellPosition(flowe, new TableLayoutPanelCellPosition(5, 2));
+            table2.SetCellPosition(plusRightLabel, new TableLayoutPanelCellPosition(2, 0));
+            table2.Controls.Add(numeric1);
+            table2.SetCellPosition(numeric1, new TableLayoutPanelCellPosition(5, 0));
+            table2.Controls.Add(numeric2);
+            table2.SetCellPosition(numeric2, new TableLayoutPanelCellPosition(5, 1));
+            table2.Controls.Add(numeric3);
+            table2.SetCellPosition(numeric3, new TableLayoutPanelCellPosition(5, 2));
+            table2.Controls.Add(numeric4);
+            table2.SetCellPosition(numeric4, new TableLayoutPanelCellPosition(5, 3));
             this.Controls.Add(flowe);
-            this.Controls.Add(table);
+            this.Controls.Add(table2);
             this.Controls.Add(start);
             
             
 
         }
+
     }
 }
