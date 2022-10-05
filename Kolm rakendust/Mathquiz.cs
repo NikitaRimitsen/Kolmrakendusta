@@ -23,27 +23,33 @@ namespace Kolm_rakendust
         Label time;
         Label timetext;
         Label plusLeftLabel, plusRightLabel;
+        Label minusLeftLabel, minusRightLabel;
+        Label timesLeftLabel, timesRightLabel;
+        Label dividedLeftLabel, dividedRightLabel;
+        Label vordub, margid;
         Button start;
-        
+
+        Random rand = new Random();
+
+        //Для появления рандомных чисел, вместо вопросительных знаков
+        int addend1;
+        int addend2;
+
+        int minuend;
+        int subtrahend;
+
+        int multiplicand;
+        int multiplier;
+
+        int dividend;
+        int divisor;
+
+        int timeLeft;
+
 
         public Mathquiz()
         {
-            Random rand = new Random();
-
-            //Для появления рандомных чисел, вместо вопросительных знаков
-            int addend1;
-            int addend2;
-
-            int minuend;
-            int subtrahend;
-
-            int multiplicand;
-            int multiplier;
-
-            int dividend;
-            int divisor;
-
-            int timeLeft;
+            
 
             /*int random = rand.Next(1, 100);
             string number1 = random.ToString();
@@ -63,7 +69,7 @@ namespace Kolm_rakendust
                 //BorderStyle = BorderStyle.FixedSingle,
                 AutoSize = true,
                 BackColor = Color.CornflowerBlue,
-                Location = new Point(0, 110),
+                Location = new Point(0, 100),
             };
 
             table2.ColumnCount = 5;
@@ -78,13 +84,12 @@ namespace Kolm_rakendust
             {
                 table2.RowStyles.Add(new RowStyle(SizeType.Percent, 25));
             }
-            plusLeftLabel = new Label
+            /*plusLeftLabel = new Label
             {
                 AutoSize = false,
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Font = new Font("Webdings", 20, FontStyle.Regular),
-                Text = "c"
             };
             plusRightLabel = new Label
             {
@@ -92,12 +97,11 @@ namespace Kolm_rakendust
                 Dock = DockStyle.Fill,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Font = new Font("Webdings", 20, FontStyle.Regular),
-                Text = "c"
-            };
-
+            };*/
+            
             table = new TableLayoutPanel
             {
-                Location = new Point(0, 100),
+                Location = new Point(0, 80),
                 BorderStyle = BorderStyle.FixedSingle,
                 AutoSize= true,
             };
@@ -105,7 +109,7 @@ namespace Kolm_rakendust
             {
                 Font = new Font("Calibri", 18, FontStyle.Regular),
                 Width = 100,
-                Name = "sun"
+                Name = "sum"
             };
             numeric2 = new NumericUpDown
             {
@@ -159,6 +163,65 @@ namespace Kolm_rakendust
                 TabIndex = 0,
                 Location = new Point(150, 280),
             };
+            start.Click += Start_Click;
+
+
+            //-------------------------Label------------------
+            //--------Plus------
+            plusLeftLabel = new Label
+            {
+                AutoSize = false,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Calibri", 20, FontStyle.Regular),
+                Text = "?"
+            };
+
+            plusRightLabel = new Label
+            {
+                AutoSize = false,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Calibri", 20, FontStyle.Regular),
+                Text = "?"
+            };
+            //--------Minus--------
+            minusLeftLabel = new Label
+            {
+                AutoSize = false,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Calibri", 20, FontStyle.Regular),
+                Text = "?"
+            };
+
+            minusRightLabel = new Label
+            {
+                AutoSize = false,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Calibri", 20, FontStyle.Regular),
+                Text = "?"
+            };
+            //--------Umno--------
+            minusLeftLabel = new Label
+            {
+                AutoSize = false,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Calibri", 20, FontStyle.Regular),
+                Text = "?"
+            };
+
+            minusRightLabel = new Label
+            {
+                AutoSize = false,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font("Calibri", 20, FontStyle.Regular),
+                Text = "?"
+            };
+            //--------Delenie--------
 
 
             //Loodud table
@@ -183,7 +246,7 @@ namespace Kolm_rakendust
                         {
                             Font = new Font("Calibri", 18, FontStyle.Regular),
                             Width = 100,
-                            Name = "sun"
+                            Name = "sum"
                         };
                         table.Controls.Add(numeric1, j, i);
                         /*
@@ -210,25 +273,79 @@ namespace Kolm_rakendust
              FlowLayoutPanel flowe = new FlowLayoutPanel { FlowDirection = FlowDirection.RightToLeft, Dock = DockStyle.Top};
             flowe.Controls.Add(time);
             flowe.Controls.Add(timetext);
+            table2.Controls.Add(numeric1);
+            table2.SetCellPosition(numeric1, new TableLayoutPanelCellPosition(4, 0));
+            table2.Controls.Add(numeric2);
+            table2.SetCellPosition(numeric2, new TableLayoutPanelCellPosition(4, 1));
+            table2.Controls.Add(numeric3);
+            table2.SetCellPosition(numeric3, new TableLayoutPanelCellPosition(4, 2));
+            table2.Controls.Add(numeric4);
+            table2.SetCellPosition(numeric4, new TableLayoutPanelCellPosition(4, 3));
+
+            //-----------Label-------------
             table2.Controls.Add(plusLeftLabel);
             table2.SetCellPosition(plusLeftLabel, new TableLayoutPanelCellPosition(0, 0));
             table2.Controls.Add(plusRightLabel);
             table2.SetCellPosition(plusRightLabel, new TableLayoutPanelCellPosition(2, 0));
-            table2.Controls.Add(numeric1);
-            table2.SetCellPosition(numeric1, new TableLayoutPanelCellPosition(5, 0));
-            table2.Controls.Add(numeric2);
-            table2.SetCellPosition(numeric2, new TableLayoutPanelCellPosition(5, 1));
-            table2.Controls.Add(numeric3);
-            table2.SetCellPosition(numeric3, new TableLayoutPanelCellPosition(5, 2));
-            table2.Controls.Add(numeric4);
-            table2.SetCellPosition(numeric4, new TableLayoutPanelCellPosition(5, 3));
+
+
+
+            //Добавление "равно" в Label vordub и знаков при помощи цикла
+            for (int i = 0; i < 4; i++)
+            {
+                margid = new Label
+                {
+                    AutoSize = false,
+                    Dock = DockStyle.Fill,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Font = new Font("Calibri", 15, FontStyle.Regular),
+                    Text = tehed[i]
+                };
+                table2.Controls.Add(margid);
+                table2.SetCellPosition(margid, new TableLayoutPanelCellPosition(1, i));
+                vordub = new Label
+                {
+                    AutoSize = false,
+                    Dock = DockStyle.Fill,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Font = new Font("Calibri", 20, FontStyle.Regular),
+                    Text = "="
+                };
+                table2.Controls.Add(vordub);
+                table2.SetCellPosition(vordub, new TableLayoutPanelCellPosition(3, i));
+            }
             this.Controls.Add(flowe);
             this.Controls.Add(table2);
             this.Controls.Add(start);
+      
             
-            
-
         }
 
+        private void Start_Click(object sender, EventArgs e)
+        {
+            StartTheQuiz();
+            start.Enabled = false;
+        }
+
+        public void StartTheQuiz()
+        {
+            addend1 = rand.Next(51);
+            addend2 = rand.Next(51);
+
+            //plus
+            plusLeftLabel.Text = addend1.ToString();
+            plusRightLabel.Text = addend2.ToString();
+            numeric1.Value = 0;
+            //minus
+            minuend = rand.Next(1, 101);
+            subtrahend = rand.Next(1, minuend);
+            minusLeftLabel.Text = minuend.ToString();
+            minusRightLabel.Text = subtrahend.ToString();
+            numeric2.Value = 0;
+
+            //umnozenie
+
+            //delenie
+        }
     }
 }
