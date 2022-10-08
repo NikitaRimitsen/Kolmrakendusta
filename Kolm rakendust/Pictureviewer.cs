@@ -23,7 +23,7 @@ namespace Kolm_rakendust
         ColorDialog colordialog = new ColorDialog{ };
         public Pictureviewer()
         {
-            this.Name = "Picture Viewer";
+            this.Name = "Piltide vaatamise tööriist";
             this.Size = new Size(850, 700);
             tableLayotPanel = new TableLayoutPanel
             {
@@ -79,7 +79,10 @@ namespace Kolm_rakendust
 
         private void Close_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Start start = new Start();
+            start.StartPosition = FormStartPosition.CenterScreen;
+            start.Show();
+            this.Hide();
         }
 
         private void Background_Click(object sender, EventArgs e)

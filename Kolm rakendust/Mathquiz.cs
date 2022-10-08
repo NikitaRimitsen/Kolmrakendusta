@@ -13,7 +13,7 @@ namespace Kolm_rakendust
 {
     public partial class Mathquiz : Form
     {
-        TableLayoutPanel table;
+        //TableLayoutPanel table;
         TableLayoutPanel table2;
         string[] tehed = new string[4] {"+", "-", "*","/"};
         
@@ -26,6 +26,7 @@ namespace Kolm_rakendust
         Label dividedLeftLabel, dividedRightLabel;
         Label vordub, margid;
         Button start;
+        Button exit;
         Timer timer;
         Random rand = new Random();
         //Для появления рандомных чисел, вместо вопросительных знаков
@@ -42,10 +43,10 @@ namespace Kolm_rakendust
 
         public Mathquiz()
         {
-            this.Name = "Math Quiz";
+            this.Name = "Matemaatika viktoriin";
             this.FormBorderStyle = FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            this.Size = new Size(550, 400);
+            this.Size = new Size(550, 450);
             table2 = new TableLayoutPanel
             {
                 BorderStyle = BorderStyle.FixedSingle,
@@ -64,12 +65,6 @@ namespace Kolm_rakendust
             {
                 table2.RowStyles.Add(new RowStyle(SizeType.Percent, 25));
             }
-            table = new TableLayoutPanel
-            {
-                Location = new Point(0, 80),
-                BorderStyle = BorderStyle.FixedSingle,
-                AutoSize= true,
-            };
             numeric1 = new NumericUpDown
             {
                 Font = new Font("Calibri", 18, FontStyle.Regular),
@@ -116,7 +111,7 @@ namespace Kolm_rakendust
             };
             start = new Button
             {
-                Text = "Start the quiz",
+                Text = "Alustage viktoriini",
                 Name = "starButton",
                 Font = new Font("Calibri", 14, FontStyle.Bold),
                 Width = 230,
@@ -126,6 +121,18 @@ namespace Kolm_rakendust
                 Location = new Point(150, 290),
             };
             start.Click += Start_Click;
+            exit = new Button
+            {
+                Text = "Väljund",
+                Name = "exitButton",
+                Font = new Font("Calibri", 14, FontStyle.Bold),
+                Width = 230,
+                Height = 20,
+                AutoSize = true,
+                TabIndex = 0,
+                Location = new Point(150, 340),
+            };
+            exit.Click += Exit_Click;
 
 
             //-------------------------Label------------------
@@ -266,8 +273,18 @@ namespace Kolm_rakendust
             this.Controls.Add(flowe);
             this.Controls.Add(table2);
             this.Controls.Add(start);
+            this.Controls.Add(exit);
    
         }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            Start start = new Start();
+            start.StartPosition = FormStartPosition.CenterScreen;
+            start.Show();
+            this.Hide();
+        }
+
         private void Numeric4_Enter(object sender, EventArgs e)
         {
             NumericUpDown answerBox = sender as NumericUpDown;

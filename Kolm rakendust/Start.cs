@@ -15,31 +15,32 @@ namespace Kolm_rakendust
         Button picture, mathquiz, mathgame; 
         public Start()
         {
-            this.Name = "Picture Viewer";
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Name = "Menu";
             this.Size = new Size(550, 500);
 
             picture = new Button
             {
-                Text = "Picture Viewer",
-                Width = 120,
+                Text = "Piltide vaatamise tööriist",
+                Width = 180,
                 Height = 30,
-                Location = new System.Drawing.Point(200, 100),
+                Location = new System.Drawing.Point(180, 100),
             };
             picture.Click += Picture_Click;
             mathquiz = new Button
             {
-                Text = "Math quiz ",
-                Width = 120,
+                Text = "Matemaatika viktoriin",
+                Width = 180,
                 Height = 30,
-                Location = new System.Drawing.Point(200, 150),
+                Location = new System.Drawing.Point(180, 150),
             };
             mathquiz.Click += Mathquiz_Click;
             mathgame = new Button
             {
-                Text = "Game",
-                Width = 120,
+                Text = "Mäng",
+                Width = 180,
                 Height = 30,
-                Location = new System.Drawing.Point(200, 200),
+                Location = new System.Drawing.Point(180, 200),
             };
             mathgame.Click += Mathgame_Click;
             this.Controls.Add(picture);
