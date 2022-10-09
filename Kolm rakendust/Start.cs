@@ -12,7 +12,7 @@ namespace Kolm_rakendust
 {
     public partial class Start : Form
     {
-        Button picture, mathquiz, mathgame; 
+        Button picture, mathquiz, mathgame, tableplayers; 
         public Start()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -43,9 +43,26 @@ namespace Kolm_rakendust
                 Location = new System.Drawing.Point(180, 200),
             };
             mathgame.Click += Mathgame_Click;
+            tableplayers = new Button
+            {
+                Text = "Mängijate tabel",
+                Width = 180,
+                Height = 30,
+                Location = new System.Drawing.Point(180, 250),
+            };
+            tableplayers.Click += Tableplayers_Click;
             this.Controls.Add(picture);
             this.Controls.Add(mathquiz);
             this.Controls.Add(mathgame);
+            this.Controls.Add(tableplayers);
+        }
+
+        private void Tableplayers_Click(object sender, EventArgs e)
+        {
+            Players players = new Players();
+            players.StartPosition = FormStartPosition.CenterScreen;
+            players.Show();
+            this.Hide();
         }
 
         private void Mathgame_Click(object sender, EventArgs e)

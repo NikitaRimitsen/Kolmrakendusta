@@ -29,6 +29,9 @@ namespace Kolm_rakendust
         Label firstClicked = null;
         Label secondClicked = null;
         Timer timer;
+        Timer gametimer;
+        int timeLeft;
+        string time;
         public Game()
         {
             this.Name = " Matching game";
@@ -67,10 +70,24 @@ namespace Kolm_rakendust
                 Interval = 750
             };
             timer.Tick += Timer_Tick;
+            gametimer = new Timer
+            {
+                Interval = 1000
+            };
+            gametimer.Tick += Gametimer_Tick;
             this.Controls.Add(table);
             AssignIconsToSquares();
 
         }
+
+        private void Gametimer_Tick(object sender, EventArgs e)
+        {
+            /*if (CheckForWinnertimer())
+            {
+                gametimer.Stop();
+            }*/
+        }
+
         private void CheckForWinner()
         {
             foreach (Control control in table.Controls)
@@ -83,8 +100,9 @@ namespace Kolm_rakendust
                         return;
                 }
             }
-
-            MessageBox.Show("Sa sobisid kõik ikoonid!", "Õnnitlus");
+            
+            string a = gametimer.ToString();
+            MessageBox.Show($"Sa sobisid kõik ikoonid!,{gametimer.Text}", "Õnnitlus");
             var answer = MessageBox.Show("Mängida uuesti?", "Mäng", MessageBoxButtons.YesNo);
             if (answer == DialogResult.Yes)
             {
@@ -148,6 +166,7 @@ namespace Kolm_rakendust
                 }
 
                 timer.Start();
+                gametimer.Start();
             }
         }
 

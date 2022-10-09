@@ -10,5 +10,12 @@ namespace Kolm_rakendust
 {
     public class ApplicationContext : DbContext
     {
+        public DbSet<Loginandpass> Logins => Set<Loginandpass>();
+        public ApplicationContext() => Database.EnsureCreated();
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=loginandpasswo.db");
+        }
     }
 }
